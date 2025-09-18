@@ -1,0 +1,9 @@
+.vs/
+Bin/
+bin/
+obj/
+ErrorLogs/
+*.user
+Logs/
+Properties/
+/PlatFormAPI/.vs/PlatFormAPI/DesignTimeBuild/.dtbcache.v2
