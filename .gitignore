@@ -7,3 +7,4 @@ ErrorLogs/
 Logs/
 Properties/
 /PlatFormAPI/.vs/PlatFormAPI/DesignTimeBuild/.dtbcache.v2
+/PlatFormAPI/appsettings.json
