@@ -43,8 +43,8 @@ var license = new OpenApiLicense()
 var info = new OpenApiInfo()
 {
     Version = "v1",
-    Title = "TKTK",
-    Description = "TKTK config",
+    Title = "NUISAM",
+    Description = "nuisam config",
     TermsOfService = new Uri("http://www.example.com"),
     Contact = contact,
     License = license

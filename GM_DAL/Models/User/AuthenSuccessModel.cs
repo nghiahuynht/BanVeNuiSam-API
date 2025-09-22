@@ -10,7 +10,7 @@ namespace GM_DAL.Models.User
     {
         public string userName { get; set; }
         public string fullName {  get; set; }
-        public string role { get; set; }
+        public string roleCode { get; set; }
         public string token { get; set; }
         public DateTime? expires { get; set; }
     }

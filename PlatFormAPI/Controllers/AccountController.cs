@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace PlatFormAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class AccountController : ControllerBase
     {
         private IUserInfoService _userInfoService;
