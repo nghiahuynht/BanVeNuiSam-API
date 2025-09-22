@@ -21,6 +21,9 @@ builder.Services.AddScoped<IUserInfoService, UserInfoService>();
 builder.Services.AddScoped<IBankService, BankService>();
 builder.Services.AddScoped<IChiTieuService, ChiTieuService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ITicketOrderService, TicketOrderService>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
