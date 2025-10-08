@@ -23,8 +23,8 @@ namespace PlatFormAPI.Controllers
         #region Ticket User
         [HttpGet]
         [Authorize]
-        [ProducesResponseType(typeof(APIResultObject<List<TicketUserModel>>), StatusCodes.Status200OK)]
-        public async Task<APIResultObject<List<TicketUserModel>>> GetTicketByUser(int userId)
+        [ProducesResponseType(typeof(APIResultObject<List<TicketModel>>), StatusCodes.Status200OK)]
+        public async Task<APIResultObject<List<TicketModel>>> GetTicketByUser(int userId)
         {
             // string passEncr = EncrypMD5(pass);
             var res = await _ticketService.GetTicketByUser(userId);

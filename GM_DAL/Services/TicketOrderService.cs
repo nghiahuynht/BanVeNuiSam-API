@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using GM_DAL.IServices;
 using GM_DAL.Models;
+using GM_DAL.Models.Print;
 using GM_DAL.Models.Ticket;
 using GM_DAL.Models.TicketOrder;
 using Microsoft.Data.SqlClient;
@@ -10,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GM_DAL.Services
 {
@@ -70,5 +72,63 @@ namespace GM_DAL.Services
             }
             return res;
         }
+
+
+        public async Task<APIResultObject<List<TicketOrderSearchGridModel>>> SearchOrder(SearchFilterModel filter)
+        {
+            var res = new APIResultObject<List<TicketOrderSearchGridModel>>();
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@FromDate", filter.fromDate);
+                parameters.Add("@ToDate", filter.toDate);
+                parameters.Add("@UserName", filter.userName);
+                parameters.Add("@Keyword", filter.keyword);
+
+                using (var connection = adoContext.CreateConnection())
+                {
+                    var dat = await connection.QueryAsync<TicketOrderSearchGridModel>("sp_SearchOrderMobile", parameters, commandType: CommandType.StoredProcedure);
+                    res.data = dat.ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.data = new List<TicketOrderSearchGridModel>();
+                res.message.exMessage = ex.Message;
+            }
+            return res;
+
+
+
+        }
+
+
+
+        public async Task<APIResultObject<List<OrderSucessResponModel>>> GetOrderWaitingScreenMobile(string orderString)
+        {
+            var res = new APIResultObject<List<OrderSucessResponModel>>();
+            try
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@OrderIds", orderString);
+                using (var connection = adoContext.CreateConnection())
+                {
+                    var dat = await connection.QueryAsync<OrderSucessResponModel>("sp_GetOrderWaitingPaymentScrenMobile", parameters, commandType: CommandType.StoredProcedure);
+                    res.data = dat.ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.data = new List<OrderSucessResponModel>();
+                res.message.exMessage = ex.Message;
+            }
+            return res;
+
+
+
+        }
+
     }
 }

@@ -28,6 +28,44 @@ namespace PlatFormAPI.Controllers
             var res = await _customerService.GetAllCustomer();
             return res;
         }
+
+
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(typeof(APIResultObject<List<ComboboxModel>>), StatusCodes.Status200OK)]
+        public async Task<APIResultObject<List<ComboboxModel>>> GetListCustomerByType(string customerType)
+        {
+            var res = await _customerService.GetListCustomerByType(customerType);
+            return res;
+        }
+
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(typeof(APIResultObject<List<ComboboxModel>>), StatusCodes.Status200OK)]
+        public async Task<APIResultObject<List<ComboboxModel>>> GetAllCustType()
+        {
+            var res = new APIResultObject<List<ComboboxModel>>();
+            res.data = new List<ComboboxModel>
+            {
+                new ComboboxModel {value="CaNhan",text="Cá nhân"},
+                new ComboboxModel {value="CongTy",text="Công ty/tổ chức"},
+                new ComboboxModel {value="Khac",text="Khác"}
+            };
+            return res;
+        }
+
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(typeof(APIResultObject<List<ComboboxModel>>), StatusCodes.Status200OK)]
+        public async Task<APIResultObject<List<ComboboxModel>>> GetAllArea()
+        {
+            var res = new APIResultObject<List<ComboboxModel>>();
+            res.data = new List<ComboboxModel>
+            {
+                new ComboboxModel {value="QuocGia-NuiSam",text="KDL Quốc gia Núi Sam"},
+            };
+            return res;
+        }
         #endregion
     }
 }

@@ -293,5 +293,21 @@ namespace GM_DAL
             }
 
         }
+
+
+        public static string GenMaWith000(Int64 value)
+        {
+            int standerLen = 7;
+            int refixLength = value.ToString().Length;
+            string temp = "";
+            for (int i = refixLength; i < standerLen; i++)
+            {
+                temp = temp + "0";
+            }
+            string madon = temp + value.ToString();
+            return madon;
+        }
+
+
     }
 }

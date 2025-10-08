@@ -10,6 +10,6 @@ namespace GM_DAL.IServices
 {
     public interface ITicketService
     {
-        Task <APIResultObject<List<TicketUserModel>>> GetTicketByUser(int UserId);
+        Task<APIResultObject<List<TicketModel>>> GetTicketByUser(int UserId);
     }
 }

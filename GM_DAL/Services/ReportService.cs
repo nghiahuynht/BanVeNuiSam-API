@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GM_DAL.Models.Report;
+using GM_DAL.Models.Print;
 
 namespace GM_DAL.Services
 {
@@ -20,34 +21,51 @@ namespace GM_DAL.Services
             this.adoContext = adoContext;
         }
 
-        public async Task<APIResultObject<List<TotalByCardModel>>> ReportFinanByCard(ReportFilterModel filter)
+
+        public async Task<APIResultObject<List<ReportSumByTicketModel>>> GetReportSumByTicket(ReportFilterModel filter)
         {
-            var res = new APIResultObject<List<TotalByCardModel>>();
+            var res = new APIResultObject<List<ReportSumByTicketModel>>();
             try
             {
 
-
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@CardId", CommonHelper.CheckLongNull(filter.carId));
-                parameters.Add("@YearView", CommonHelper.CheckIntNull(filter.yearView));
-                parameters.Add("@FromMonth", CommonHelper.CheckIntNull(filter.fromMonth));
-                parameters.Add("@ToMonth", CommonHelper.CheckIntNull(filter.toMonth));
-                parameters.Add("@UserName", CommonHelper.CheckStringNull(filter.userName));
                 using (var connection = adoContext.CreateConnection())
                 {
-                    var resultExcute = await connection.QueryAsync<TotalByCardModel>("sp_ReportFinanByCard", parameters, commandType: CommandType.StoredProcedure);
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@FromDate", CommonHelper.CheckDateNull(filter.fromDate));
+                    parameters.Add("@ToDate", CommonHelper.CheckDateNull(filter.toDate));
+                    parameters.Add("@UserName", CommonHelper.CheckStringNull(filter.userName));
+                    var resultExcute = await connection.QueryAsync<ReportSumByTicketModel>("sp_GetReportSumByTicket", parameters, commandType: CommandType.StoredProcedure);
                     res.data = resultExcute.ToList();
                 }
-
-
             }
             catch (Exception ex)
             {
-                res.code = Enum.ResultCode.ErrorException;
-                res.message.message = "error";
+                res.data = new List<ReportSumByTicketModel>();
                 res.message.exMessage = ex.Message;
             }
+            return res;
+        }
 
+
+        public async Task<APIResultObject<List<PrintInfoModel>>> GetInfoPrint(long orderId)
+        {
+            var res = new APIResultObject<List<PrintInfoModel>>();
+            try
+            {
+
+                using (var connection = adoContext.CreateConnection())
+                {
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@OrderId", CommonHelper.CheckLongNull(orderId));
+                    var resultExcute = await connection.QueryAsync<PrintInfoModel>("sp_GetPrintForMobile", parameters, commandType: CommandType.StoredProcedure);
+                    res.data = resultExcute.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                res.data = new List<PrintInfoModel>();
+                res.message.exMessage = ex.Message;
+            }
             return res;
         }
 

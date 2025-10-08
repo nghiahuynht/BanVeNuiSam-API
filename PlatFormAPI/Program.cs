@@ -13,7 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddHttpClient();
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<SQLAdoContext>();
@@ -24,6 +24,8 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ITicketOrderService, TicketOrderService>();
+builder.Services.AddSingleton<IHttpClientService, HttpClientService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

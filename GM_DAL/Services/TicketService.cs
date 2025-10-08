@@ -24,9 +24,9 @@ namespace GM_DAL.Services
             this.adoContext = adoContext;
         }
 
-        public async Task<APIResultObject<List<TicketUserModel>>> GetTicketByUser(int UserId)
+        public async Task<APIResultObject<List<TicketModel>>> GetTicketByUser(int UserId)
         {
-            var res = new APIResultObject<List<TicketUserModel>>();
+            var res = new APIResultObject<List<TicketModel>>();
             try
             {
                 var parameters = new DynamicParameters();
@@ -35,7 +35,7 @@ namespace GM_DAL.Services
            
                 using (var connection = adoContext.CreateConnection())
                 {
-                    var resultExcute = await connection.QueryAsync<TicketUserModel>("sp_GetTicketByUserId", parameters, commandType: CommandType.StoredProcedure);
+                    var resultExcute = await connection.QueryAsync<TicketModel>("sp_GetTicketByUserId", parameters, commandType: CommandType.StoredProcedure);
                     res.data = resultExcute.ToList();
                 }
             }

@@ -12,5 +12,7 @@ namespace GM_DAL.IServices
     public interface ITicketOrderService
     {
         Task<APIResultObject<ResCommon>> SaveOrderToData(PostOrderSaveModel model, string userName, string gateName);
+        Task<APIResultObject<List<TicketOrderSearchGridModel>>> SearchOrder(SearchFilterModel filter);
+        Task<APIResultObject<List<OrderSucessResponModel>>> GetOrderWaitingScreenMobile(string orderString);
     }
 }

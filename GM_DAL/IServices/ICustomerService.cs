@@ -11,5 +11,6 @@ namespace GM_DAL.IServices
     public interface ICustomerService
     {
         Task<APIResultObject<List<CustomerModel>>> GetAllCustomer();
+        Task<APIResultObject<List<ComboboxModel>>> GetListCustomerByType(string customerType);
     }
 }

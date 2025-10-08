@@ -8,6 +8,7 @@ namespace GM_DAL.Models.User
 {
     public class AuthenSuccessModel
     {
+        public string userId { get; set; }
         public string userName { get; set; }
         public string fullName {  get; set; }
         public string roleCode { get; set; }
